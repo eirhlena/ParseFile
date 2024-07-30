@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import logging
 
-OUTPUT_DIRECTORY = "OutputFiles"
+OUTPUT_DIRECTORY = "Output"
 OUTPUT_FILENAME = "Query_Execution_Summary.txt"
 DELIMITER = 'INFO  : ----------------------------------------------------------------------------------------------'
 
