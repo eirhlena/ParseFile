@@ -1,47 +1,84 @@
-import os, sys
+"""
+arguments_and_logging.py
+
+This script defines the Arguments and Loggings classes, which handle command line
+arguments and configure logging respectively. The Arguments class processes command line
+arguments to determine the input file path. The Loggings class sets up logging to a file
+and the console.
+
+Classes:
+    Arguments: Processes command line arguments to determine the input file path.
+    Loggings: Configures logging to a file and the console.
+
+Usage:
+    - Initialize an Arguments object and call the `get_filepath` method to get the input file path.
+    - Initialize a Loggings object and call the `set_up_logs` method to configure logging.
+"""
+
+import os
+import sys
 import logging
 from pathlib import Path
+
 DEFAULT_FILE_NAME = 'beeline_consent_query_stderr.txt'
 
 class Arguments:
+    """
+    A class to handle command line arguments and determine the input file path.
+
+    Methods:
+        handle_command_line_args: Processes command line arguments to determine the input file path.
+        get_filepath: Returns the determined input file path.
+    """
 
     def handle_command_line_args(self):
-        # Determine if the script was executed with no arguments
+        """
+        Returns:
+            str: The path to the default input file if no arguments are given.
+
+        Raises:
+            SystemExit: If unexpected additional command line arguments are detected.
+        """
         if not sys.argv[1:]:
-            # Build the path to the default input file if no arguments are given
-            current_script = os.path.abspath(__file__)  # Get the absolute path of the script
-            directory_of_script = os.path.dirname(current_script)  # Extract directory path from the script path
+            current_script = os.path.abspath(__file__)
+            directory_of_script = os.path.dirname(current_script)
             relative_input_folder = "../Input/"
             default_file_path = os.path.join(directory_of_script, relative_input_folder, DEFAULT_FILE_NAME)
             return default_file_path
         else:
-            # Log an error message and terminate if extra arguments are present
             logging.critical('Unexpected additional command line arguments detected.')
-            sys.exit(1)  # Exit with an error code to signal abnormal termination
-
+            sys.exit(1)
 
     def get_filepath(self):
+        """
+        Returns:
+            str: The path to the input file.
+        """
         filepath = self.handle_command_line_args()
-        # self._verify_existance_of_file(filepath)
-        logging.info("Arguments verification and filepath retrieval completed succesfully")
+        logging.info("Arguments verification and filepath retrieval completed successfully")
         return filepath
 
 class Loggings:
+    """
+    A class to configure logging to a file and the console.
+
+    Methods:
+        configure_logging: Sets up logging to a file.
+        configure_console_logging: Sets up logging to the console.
+        set_up_logs: Configures both file and console logging.
+    """
 
     def configure_logging(self):
-        # Determine the absolute path of the current script
+        """
+        Sets up logging to a file.
+        """
         current_script = os.path.abspath(__file__)
-        # Extract the directory containing the script
         script_directory = os.path.dirname(current_script)
-        # Get the parent directory of the script's directory
         parent_directory = Path(script_directory).parent
-        # Define the logs directory and the log file name
         logs_directory = "Logs"
         log_file_name = "logs_info.log"
-        # Construct the full path for the log file
         log_file_path = os.path.join(parent_directory, logs_directory, log_file_name)
 
-        # Set up the logging configuration
         logging.basicConfig(
             filename=log_file_path,
             filemode='w',
@@ -50,18 +87,20 @@ class Loggings:
             level=logging.INFO
         )
 
-    def _set_up_console_logs(self):
-        # define a Handler which writes INFO messages or higher to the sys.stderr
+    def configure_console_logging(self):
+        """
+        Sets up logging to the console.
+        """
         console = logging.StreamHandler()
         console.setLevel(logging.INFO)
-        # set a format which is simpler for console use
         formatter = logging.Formatter('%(asctime)s,%(msecs)d - %(levelname)s - %(message)s')
-        # tell the handler to use this format
         console.setFormatter(formatter)
-        # add the handler to the root logger
         logging.getLogger('').addHandler(console)
 
     def set_up_logs(self):
+        """
+        Configures both file and console logging.
+        """
         self.configure_logging()
-        self._set_up_console_logs()
-        logging.info("Setup of logs file and loggings on console completed succesfully")
+        self.configure_console_logging()
+        logging.info("Setup of logs file and console logging completed successfully")
