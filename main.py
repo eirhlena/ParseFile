@@ -1,15 +1,15 @@
-from Processes.setup import Loggings, Arguments
+from Processes.configuration import Loggings, Arguments
 from Processes.parsing_files import ParseInputFile
 
 def main():
 
-    loggings_setup = Loggings()
-    loggings_setup.set_up_logs()
-    argument_checks = Arguments()
-    filepath = argument_checks.get_filepath()
+    loggings = Loggings()
+    loggings.set_up_logs()
+    arg_check = Arguments()
+    filepath = arg_check.get_filepath()
 
-    file_parser = ParseInputFile()
-    file_parser.parse_file(filepath)
+    parser = ParseInputFile()
+    parser.parse_file(filepath)
 
 
 if __name__ == '__main__':

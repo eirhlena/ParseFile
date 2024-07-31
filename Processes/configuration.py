@@ -37,7 +37,7 @@ class Loggings:
         parent_directory = Path(script_directory).parent
         # Define the logs directory and the log file name
         logs_directory = "Logs"
-        log_file_name = "logging_info.log"
+        log_file_name = "logs_info.log"
         # Construct the full path for the log file
         log_file_path = os.path.join(parent_directory, logs_directory, log_file_name)
 

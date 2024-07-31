@@ -1,6 +1,0 @@
-22:49:57,660 INFO Setup of logs file and loggings on console completed succesfully
-22:49:57,660 INFO Arguments verification and filepath retrieval completed succesfully
-22:49:57,661 INFO Query_Execution_Summary.txt created successfully
-22:49:57,662 INFO File Task_Execution_Summary.txt created successfully
-22:49:57,669 INFO File Detailed_Metrics_per_task.txt created successfully
-22:49:57,669 INFO Input file parsing completed successfully
